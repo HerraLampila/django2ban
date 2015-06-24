@@ -1,0 +1,1 @@
+Simple authentication backend for logging invalid login attempts.
