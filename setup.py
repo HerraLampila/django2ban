@@ -16,7 +16,7 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/pypa/sampleproject',
+    url='https://github.com/HerraLampila/django2ban',
 
     author='Otto Lampila',
     author_email='otto.lampila@gmail.com',
