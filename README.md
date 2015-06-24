@@ -44,7 +44,7 @@ LOGGING = {
         'auth_format': {
             'format': "%(asctime)s {} [%(name)s]: %(message)s".
                       format(project_module.__name__),
-            'datefmt': "%B %d %H:%M:%S"
+            'datefmt': "%b %d %H:%M:%S"
         },
     },
     'handlers': {
