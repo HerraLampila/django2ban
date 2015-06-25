@@ -1,7 +1,7 @@
 #django2ban
 
 Simple authentication backend for logging invalid login attempts. 
-Intended to use with something like "fail2ban". 
+Intended to use with "fail2ban". 
 
 ## Install instructions
 
@@ -32,9 +32,10 @@ AUTHENTICATION_BACKENDS = (
 )
 ```
 
-Make sure django2ban is the **last** authentication backend!
+Make sure django2ban is the **last** authentication backend because we only 
+want to log invalid login attempts.
 
-## Example logging
+## Example Django logging
 
 ```
 LOGGING = {
@@ -63,4 +64,28 @@ LOGGING = {
         },
     }
 }
+```
+
+## fail2ban example conf
+
+### Filter
+django2ban.conf
+
+```
+[Definition]
+failregex = Failed [-/\w]+ .* from <HOST>
+```
+This works with the example logging above. If you use different Django logging 
+formatter, you may have to change this filter.
+
+### Jail
+```
+[django2ban]
+enabled  = true
+filter   = django2ban
+action   = iptables-multiport[name=django2ban, port="http,https", chain=FORWARD]
+           sendmail-whois[name=django2ban, dest="%(destemail)s", sender="%(sender)s", sendername="%(sendername)s"]
+logpath  = /path/to/your/auth.log
+maxretry = 4
+bantime  = 3600
 ```
