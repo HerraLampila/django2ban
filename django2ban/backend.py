@@ -10,9 +10,7 @@ class InvalidLoginBackend(object):
     def authenticate(self, username=None, password=None):
         request = ThreadLocal.get_current_request()
         if request:
-            ua = request.META['HTTP_USER_AGENT']
             ip = request.META['REMOTE_ADDR']
-            ref = request.META['HTTP_REFERER']
             msg = u'Failed password for user %s from %s' % (username, ip)
             logger.info(msg)
 
